@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <script type="text/javascript">
+            test();
+
+            async function test() {
+                const hostname = window.location.hostname;
+                const subdomain = hostname.substring(0, hostname.indexOf("."));
+        
+                console.log(subdomain);
+
+                const pathname = window.location.pathname === "/" ? "/index.html" : window.location.pathname.replace(".html", "");
+                console.log(pathname);
+
+                const res = await fetch(`https://commenze.app/file/commenze-sites/${subdomain}${pathname}.html`);
+                const html = await res.text();
+
+                let head = html.substring(html.indexOf("<head>") + 6, html.indexOf("</head>"));
+                document.head.innerHTML = head;
+
+                let body = html.substring(html.indexOf("<body>") + 6, html.indexOf("</body>"));
+                document.body.innerHTML = body;
+            }
+        </script>
+    </head>
+</html>
